@@ -92,7 +92,7 @@ class Student
     LIMIT 1;
     SQL
 
-    first_student = DB[:conn].execute(sql)
+    first_student = DB[:conn].execute(sql).flatten
     self.new_from_db(first_student)
   end
 end
