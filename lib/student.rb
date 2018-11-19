@@ -14,7 +14,7 @@ class Student
   def self.all
     # retrieve all the rows from the "Students" database
     # remember each row should be a new instance of the Student class
-    all = DB[:conn].execute("SELECT * FROM students").flatten
+    all = DB[:conn].execute("SELECT * FROM students")
     all.map do |student_row|
       self.new_from_db(student_row)
       binding.pry
