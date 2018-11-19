@@ -95,4 +95,14 @@ class Student
     first_student = DB[:conn].execute(sql).flatten
     self.new_from_db(first_student)
   end
+
+  def self.all_students_in_grade_X(grade)
+    sql = <<-SQL
+    SELECT * FROM students
+    WHERE grade = ?;
+    SQL
+
+    grade_X = DB[:conn].execute(sql)
+    grade_X.map {|student| self.new_from_db(student)}
+  end
 end
