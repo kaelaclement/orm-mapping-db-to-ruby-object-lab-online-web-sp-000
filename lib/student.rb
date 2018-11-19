@@ -23,7 +23,6 @@ class Student
     SQL
 
     student_row = DB[:conn].execute(sql, name).flatten
-    binding.pry
     self.new_from_db(student_row)
   end
 
