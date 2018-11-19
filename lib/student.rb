@@ -17,6 +17,7 @@ class Student
     all = DB[:conn].execute("SELECT * FROM students").flatten
     all.map do |student_row|
       self.new_from_db(student_row)
+      binding.pry
     end
   end
 
