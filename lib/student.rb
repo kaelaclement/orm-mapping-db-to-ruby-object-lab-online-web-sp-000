@@ -69,6 +69,7 @@ class Student
     WHERE grade < 12
     SQL
 
-    DB[:conn].execute(sql)
+    below_grade_12 = DB[:conn].execute(sql)
+    below_grade_12.map {|student| self.new_from_db(student)}
   end
 end
