@@ -21,7 +21,7 @@ class Student
   def self.find_by_name(name)
     sql = <<-SQL
     SELECT * FROM students
-    WHERE name = ?
+    WHERE name = ?;
     SQL
 
     student_row = DB[:conn].execute(sql, name).flatten
@@ -31,7 +31,7 @@ class Student
   def save
     sql = <<-SQL
       INSERT INTO students (name, grade)
-      VALUES (?, ?)
+      VALUES (?, ?);
     SQL
 
     DB[:conn].execute(sql, self.name, self.grade)
@@ -57,7 +57,7 @@ class Student
   def self.all_students_in_grade_9
     sql = <<-SQL
     SELECT * FROM students
-    WHERE grade = 9
+    WHERE grade = 9;
     SQL
 
     grade_9 = DB[:conn].execute(sql)
@@ -67,10 +67,21 @@ class Student
   def self.students_below_12th_grade
     sql = <<-SQL
     SELECT * FROM students
-    WHERE grade < 12
+    WHERE grade < 12;
     SQL
 
     below_grade_12 = DB[:conn].execute(sql)
     below_grade_12.map {|student| self.new_from_db(student)}
+  end
+
+  def self.first_X_students_in_grade_10(num_of_students)
+    sql = <<-SQL
+    SELECT * FROM students
+    WHERE grade = 10
+    LIMIT ?;
+    SQL
+
+    first_students = DB[:conn].execute(sql, num_of_students)
+    first_students.map {|student| self.new_from_db(student)}
   end
 end
